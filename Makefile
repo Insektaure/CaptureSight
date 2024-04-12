@@ -38,8 +38,8 @@ include $(DEVKITPRO)/libnx/switch_rules
 #   NACP building is skipped as well.
 #---------------------------------------------------------------------------------
 
-APP_TITLE			:=		CaptureSight
-APP_VERSION 	:= 		0.12.8
+APP_TITLE		:=		CaptureSight
+APP_VERSION 	:= 		0.13.0b
 
 TARGET		:=	capturesight
 BUILD		:=	build
