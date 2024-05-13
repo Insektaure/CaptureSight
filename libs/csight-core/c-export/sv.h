@@ -14,6 +14,10 @@ namespace csight::sv {
     return sv_read_top_level_raid_seed();
   }
 
+  std::shared_ptr<Pk9> read_trade_pokemon() {
+    return std::make_shared<Pk9>(sv_read_trade_pokemon());
+  }
+
   std::shared_ptr<TrainerInfo> read_trainer_info() {
     TrainerInfo trainer_info;
     sv_read_trainer_info(&trainer_info);

@@ -349,6 +349,8 @@ pk9_t *sv_read_party_pokemon(uint8_t index);
 
 uint64_t sv_read_top_level_raid_seed();
 
+pk9_t *sv_read_trade_pokemon();
+
 void sv_read_trainer_info(TrainerInfo *out);
 
 xoroshiro_tracker_t *swsh_get_main_rng_tracker();

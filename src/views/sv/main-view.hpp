@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../trainer-view.hpp"
+#include "./wild-trade-raid-view.hpp"
 #include "../party-list-view.hpp"
 #include "../rng-view.hpp"
 #include <csight-core.h>
@@ -20,6 +21,7 @@ class MainSvView : public tsl::Gui {
     auto list = new tsl::elm::List();
 
     list->addItem(new tsl::elm::CategoryHeader("Pokemon"));
+    list->addItem(new SvWildTradeRaidViewButton());
     list->addItem(new PartyListViewButton(csight::sv::read_party_pokemon));
 
     list->addItem(new tsl::elm::CategoryHeader("Raid seed"));

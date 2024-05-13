@@ -27,6 +27,16 @@ fn read_party_pokemon(index: u8) -> Pk9 {
     read_pokemon_from_core_param(slot)
 }
 
+pub fn read_trade_pokemon() -> Pk9 {
+    DmntReader::new_from_main_nso(u64::from(Offsets::Trade))
+        .follow(0)
+        .follow(0x48)
+        .follow(0x58)
+        .follow(0x40)
+        .read_offset::<Ek9>(0x148)
+        .into()
+}
+
 const RAID_SEED_ADDRS: [u64; 7] = [
     0x7100943acc,
     0x7100943b2c,
@@ -84,6 +94,11 @@ mod c_api {
     #[no_mangle]
     pub unsafe extern "C" fn sv_read_top_level_raid_seed() -> u64 {
         super::read_top_level_raid_seed()
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn sv_read_trade_pokemon() -> *mut Pk9 {
+        crate::utils::boxed!(super::read_trade_pokemon())
     }
 
     #[no_mangle]

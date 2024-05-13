@@ -7,4 +7,5 @@ pub enum Offsets {
     // v3.0.1
     Party = 0x4763C98,
     MyStatus = 0x47350d8,
+    Trade = 0x473A110
 }
