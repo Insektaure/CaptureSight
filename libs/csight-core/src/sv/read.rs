@@ -5,13 +5,11 @@ use pkm_rs::{Ek9, Pk9};
 pub fn read_trainer_info() -> TrainerInfo {
     DmntReader::new_from_main_nso(u64::from(Offsets::MyStatus))
     .follow(0)
-    .follow(0xd8)
-    .follow(0x08)
-    .follow(0xb8)
-    .follow(0xd0)
-    //.follow(0x40)
+    .follow(0xD8)
+    .follow(0x8)
+    .follow(0xB8)
+    .follow(0)
     .read_offset(0x40)
-    //.read_offset(0)
 }
 
 fn read_pokemon_from_core_param(reader: DmntReader) -> Pk9 {
