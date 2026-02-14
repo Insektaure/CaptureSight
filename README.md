@@ -45,6 +45,9 @@ CaptureSight is a Nintendo Switch homebrew to view Pokemon data while playing Po
 - View Pokemon species, attacks, IVs, etc. for
   - In-Trade Pokemon
   - Party Pokemon
+- View Tera Raid details for Paldea, Kitakami, and Blueberry regions
+  - Species, shiny status, IVs, nature, ability, tera type
+  - Supports standard (1-5 star) and black (6 star) raids
 - View your TID and SID
 
 
