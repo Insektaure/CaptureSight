@@ -2,6 +2,7 @@
 
 #include "../trainer-view.hpp"
 #include "./wild-trade-raid-view.hpp"
+#include "./tera-raid-list-view.hpp"
 #include "../party-list-view.hpp"
 #include "../rng-view.hpp"
 #include <csight-core.h>
@@ -24,10 +25,10 @@ class MainSvView : public tsl::Gui {
     list->addItem(new SvWildTradeRaidViewButton());
     list->addItem(new PartyListViewButton(csight::sv::read_party_pokemon));
 
-    list->addItem(new tsl::elm::CategoryHeader("Raid seed"));
-    auto top_level_raid_seed = csight::sv::read_top_level_raid_seed();
-    m_seed_list_item = new tsl::elm::ListItem(utils::num_to_hex(top_level_raid_seed));
-    list->addItem(m_seed_list_item);
+    list->addItem(new tsl::elm::CategoryHeader("Raids"));
+    list->addItem(new PaldeaRaidListViewButton());
+    list->addItem(new KitakamiRaidListViewButton());
+    list->addItem(new BlueberryRaidListViewButton());
 
     list->addItem(new tsl::elm::CategoryHeader("Trainer Info"));
     auto trainer_info = csight::sv::read_trainer_info();
@@ -38,10 +39,4 @@ class MainSvView : public tsl::Gui {
     return frame;
   }
 
-  virtual void update() override {
-    auto top_level_raid_seed = csight::sv::read_top_level_raid_seed();
-    m_seed_list_item->setText(utils::num_to_hex(top_level_raid_seed));
-  }
-
-  tsl::elm::ListItem *m_seed_list_item;
 };

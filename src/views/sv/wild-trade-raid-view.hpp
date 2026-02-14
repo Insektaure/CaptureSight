@@ -16,7 +16,7 @@ class SvWildTradeRaidView : public tsl::Gui {
   SvWildTradeRaidView() { }
 
   virtual tsl::elm::Element *createUI() override {
-    auto frame = new tsl::elm::OverlayFrame("Wild/Trade/Raid Pokemon", " ");
+    auto frame = new tsl::elm::OverlayFrame("Wild/Trade Pokemon", " ");
     auto list = new tsl::elm::List();
 
     list->addItem(new tsl::elm::CategoryHeader("Pokemon"));
