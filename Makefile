@@ -39,7 +39,7 @@ include $(DEVKITPRO)/libnx/switch_rules
 #---------------------------------------------------------------------------------
 
 APP_TITLE		:=		CaptureSight Reborn
-APP_VERSION 	:= 		0.14.0
+APP_VERSION 	:= 		0.14.1
 APP_AUTHOR		:=		Insektaure
 
 TARGET		:=	capturesight

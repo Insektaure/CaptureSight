@@ -13,7 +13,7 @@ class MainArceusView : public tsl::Gui {
   MainArceusView() { }
 
   virtual tsl::elm::Element *createUI() override {
-    auto frame = new tsl::elm::OverlayFrame("CaptureSight", " ");
+    auto frame = new tsl::elm::OverlayFrame("CaptureSight Reborn", " ");
     auto list = new tsl::elm::List();
 
     list->addItem(new tsl::elm::CategoryHeader("Pokemon"));

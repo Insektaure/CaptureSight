@@ -20,7 +20,7 @@ class MainBdSpView : public tsl::Gui {
   MainBdSpView() { }
 
   virtual tsl::elm::Element *createUI() override {
-    auto frame = new tsl::elm::OverlayFrame("CaptureSight", " ");
+    auto frame = new tsl::elm::OverlayFrame("CaptureSight Reborn", " ");
     auto list = new tsl::elm::List();
     u32 encounter_count = csight::bdsp::read_encounter_pokemon_count();
     u32 party_count = csight::bdsp::read_party_pokemon_count();

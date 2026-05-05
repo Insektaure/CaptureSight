@@ -9,26 +9,70 @@
 #include <tesla.hpp>
 #include <vector>
 
-class UndergroundView : public tsl::Gui {
+class UndergroundView : public DetachableView {
  public:
-  UndergroundView() { }
+  UndergroundView() : DetachableView("Underground") { }
 
-  virtual tsl::elm::Element *createUI() override {
-    auto frame = new tsl::elm::OverlayFrame("Underground", " ");
-    auto list = new tsl::elm::List();
-
+  virtual void setupList(tsl::elm::List *list) {
     // We always need at least one item in a list to prevent it from crashing
     list->addItem(new tsl::elm::CategoryHeader("Pokemon"));
-    auto pkxs = csight::bdsp::read_underground_pokemon();
 
-    for (auto pkx : pkxs) {
-      std::string label = pkx->SpeciesString() + (pkx->IsShiny() ? " ★" : " ");
-      list->addItem(new PokemonViewButton(label, pkx));
+    m_pkxs = csight::bdsp::read_underground_pokemon();
+
+    for (size_t i = 0; i < kMaxUndergroundPokemon; i++) {
+      auto item = new tsl::elm::ListItem("");
+      item->setClickListener([this, i](u64 keys) {
+        if ((keys & HidNpadButton_A) && i < m_pkxs.size() && m_pkxs[i] != nullptr) {
+          auto pkx = m_pkxs[i];
+          tsl::changeTo<PokemonView>([pkx]() -> std::shared_ptr<csight::Pkx> { return pkx; });
+          return true;
+        }
+        return false;
+      });
+      m_list_items.push_back(item);
+      list->addItem(item);
     }
 
-    frame->setContent(list);
+    refreshLabels();
+  }
 
-    return frame;
+  virtual void update() override {
+    m_pkxs = csight::bdsp::read_underground_pokemon();
+    refreshLabels();
+  }
+
+  virtual bool handleInput(u64 keysDown, u64 keysHeld, const HidTouchState &touchPos, HidAnalogStickState leftJoyStick,
+                           HidAnalogStickState rightJoyStick) override {
+    if (keysDown & HidNpadButton_Up) {
+      utils::toggleAttached();
+      return true;
+    }
+
+    // When attached, let the list receive input so the user can scroll
+    // through the pokemon and open their details with A
+    if (utils::getIsAttached()) {
+      return false;
+    }
+
+    return true;
+  }
+
+ private:
+  // PokeFinder caps Underground hideaway spawns at 10
+  // (Core/Gen8/UndergroundArea.cpp: std::array<TypeSize, 10>)
+  static constexpr size_t kMaxUndergroundPokemon = 10;
+  std::vector<std::shared_ptr<csight::Pk8>> m_pkxs;
+  std::vector<tsl::elm::ListItem *> m_list_items;
+
+  void refreshLabels() {
+    for (size_t i = 0; i < m_list_items.size(); i++) {
+      if (i < m_pkxs.size() && m_pkxs[i] != nullptr) {
+        auto pkx = m_pkxs[i];
+        m_list_items[i]->setText(pkx->SpeciesString() + (pkx->IsShiny() ? " ★" : " "));
+      } else {
+        m_list_items[i]->setText("");
+      }
+    }
   }
 };
 
